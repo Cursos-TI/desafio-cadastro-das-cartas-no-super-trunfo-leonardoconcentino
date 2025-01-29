@@ -61,9 +61,9 @@ int main() {
         getchar(); //clears any space in terminal before scanf
         scanf("%d", &cities[i].population);
 
-        printf("Type the city's %d AREA: (FORMAT: full number ex: 2000000 for 2 milion m²)\n", i+1);
+        printf("Type the city's %d AREA: (FORMAT: full number ex: 2000000 for 2 milion km²)\n", i+1);
         getchar();
-        scanf(" %f", &cities[i].area);
+        scanf("%f", &cities[i].area);
 
         printf("Type the city's %d NUMBER OF TOURISTIC POINTS:\n", i+1);
         getchar();
@@ -71,7 +71,7 @@ int main() {
 
         printf("Type the city's %d GDP:\n", i+1);
         getchar();
-        scanf(" %f", &cities[i].gdp);
+        scanf("%f", &cities[i].gdp);
 
         printf("Type the city's %d HDI:\n", i+1);
         getchar();
@@ -80,31 +80,76 @@ int main() {
         printf("Type the city's %d YEAR OF FOUNDATION:\n", i+1);
         getchar();
         scanf(" %d", &cities[i].yearOfFoundation);
-        
+
+        //now that I coul get all the data, let's calculate popDen and gdpCapita
+
+        cities[i].popDen = cities[i].population/cities[i].area; //calculate popDen
+
+        cities[i].gdpCapita = cities[i].gdp/cities[i].population; //calculate gdp Per Capita
+
+
+        //now, let's show the user the city's infos.
         printf("OK, city %d finished! Let's check:\n", i+1);
         printf("City's Name: %s \n", cities[i].name);
         printf("City's Code: %s \n", cities[i].code);
         printf("City's Population: %d \n", cities[i].population);
-        printf("City's Area: %f \n",  cities[i].area);
+        printf("City's Area: %.2f \n",  cities[i].area);
         printf("City's Number of Touristic Points: %d \n", cities[i].numTouristicPoints);
-        printf("City's GDP: %f \n", cities[i].gdp);
-        printf("City's HDI: %f \n", cities[i].hdi);
+        printf("City's GDP: %.2f \n", cities[i].gdp);
+        printf("City's HDI: %.3f \n", cities[i].hdi);
         printf("City's Year of Foundation: %d \n", cities[i].yearOfFoundation);
+        printf("City's Populational Density: %.2f \n", cities[i].popDen);
+        printf("City's GDP per Capita: %.2f \n", cities[i].gdpCapita);
+        
+        
+        // "Press Enter to continue" function
+        getchar(); //clear everything
+        printf("\nPress Enter to continue...");
+        getchar(); // wait for user to press enter
+        printf("\n"); // just to make it more beautyful :D
+
+        //and repeat!
+    }
+
+    printf("\n \n \nEverything finished! Let's check all the cards (press enter to continue):\n");
+    getchar();
+
+    //now, I want to show everything again to the user, all the cards. just to check if everything is well saved.
+    for (int i = 0; i < totalNumCities; i++){
+        
+        printf("___________________________________\n");
+        printf("City number %d:\n", i+1);
+        printf("City's Name: %s \n", cities[i].name);
+        printf("City's Code: %s \n", cities[i].code);
+        printf("City's Population: %d \n", cities[i].population);
+        printf("City's Area: %.2f \n",  cities[i].area);
+        printf("City's Number of Touristic Points: %d \n", cities[i].numTouristicPoints);
+        printf("City's GDP: %.2f \n", cities[i].gdp);
+        printf("City's HDI: %.3f \n", cities[i].hdi);
+        printf("City's Year of Foundation: %d \n", cities[i].yearOfFoundation);
+        printf("City's Populational Density: %.2f \n", cities[i].popDen);
+        printf("City's GDP per Capita: %.2f \n", cities[i].gdpCapita);
+        printf("___________________________________\n");
 
     }
 
+    
 
 
-
-    
-    
-    // Cadastro das Cartas:
-    // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
-    // Solicite ao usuário que insira as informações de cada cidade, como o código, nome, população, área, etc.
-    
-    // Exibição dos Dados das Cartas:
-    // Sugestão: Utilize a função printf para exibir as informações das cartas cadastradas de forma clara e organizada.
-    // Exiba os valores inseridos para cada atributo da cidade, um por linha.
+    /*No nível Mestre, você implementará comparações entre as cartas, utilizando operadores relacionais e manipulando grandes números com precisão.
+    🆕 Diferença em relação ao Nível Aventureiro:
+    Comparação de Cartas:
+    O sistema permitirá ao usuário comparar duas cartas com base nas propriedades inseridas e calculadas.
+    Cada carta terá um "Super Poder", que é a soma de todas as propriedades.
+    ⚙️ Funcionalidades do Sistema:
+    O sistema utilizará operadores relacionais para determinar a carta vencedora com base nas propriedades comparadas.
+    A comparação considerará:
+    Densidade Populacional: Vence a carta com menor valor.
+    Outras Propriedades: Vence a carta com maior valor.
+    O resultado das comparações será exibido claramente para cada propriedade.
+    📥 Entrada e 📤 Saída de Dados:
+    O usuário insere as cartas a serem comparadas.
+    O sistema exibe os resultados das comparações, indicando a carta vencedora para cada propriedade.*/
 
     return 0;
 }
