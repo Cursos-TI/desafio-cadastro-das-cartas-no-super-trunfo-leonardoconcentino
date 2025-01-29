@@ -1,5 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#ifdef _WIN32 // I had to add this here, so then I could use strcasecmp to turn the function to case-insensitive
+    #include <string.h>
+    #define strcasecmp _stricmp // Windows equivalent
+#else
+    #include <strings.h> // Required for strcasecmp() on Linux/macOS
+#endif
 
 // "Super Trunfo - Countries" Challenges
 /* "Super Trunfo - Countries" is a card game about countries would feature cards representing different nations, 
@@ -197,13 +203,13 @@ int main() {
             if(attribute == '1'){ //compares population
                 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1.
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1.
                     // I changed the function, bc it was case sensitive. this now is case-insensitive
                         attributeCity1 = cities[i].population;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].population;
 
@@ -233,13 +239,13 @@ int main() {
             if (attribute == '2'){ //compares Area
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].area;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].area;
 
@@ -269,13 +275,13 @@ int main() {
             if (attribute == '3'){ //compares touristic points
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].numTouristicPoints;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].numTouristicPoints;
 
@@ -305,13 +311,13 @@ int main() {
             if (attribute == '4'){ //compares gdp
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].gdp;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].gdp;
 
@@ -341,13 +347,13 @@ int main() {
             if (attribute == '5'){ //compares HDI
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].hdi;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].hdi;
 
@@ -377,13 +383,13 @@ int main() {
             if (attribute == '6'){ //compares Year of Foundation
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].yearOfFoundation;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].yearOfFoundation;
 
@@ -413,13 +419,13 @@ int main() {
             if (attribute == '7'){ //compares populational density
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].popDen;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].popDen;
 
@@ -449,13 +455,13 @@ int main() {
             if (attribute == '8'){ //compares GDP per capita
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].gdpCapita;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].gdpCapita;
 
@@ -485,13 +491,13 @@ int main() {
             if (attribute == '9'){ //compares superPower
 
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (_stricmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].superPower;
 
                     }
 
-                    if (_stricmp(cities[i].name, city2) == 0){
+                    if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].superPower;
 
