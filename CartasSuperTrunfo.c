@@ -111,8 +111,13 @@ int main() {
         //and repeat!
     }
 
-    printf("\n \n \nEverything finished! Let's check all the cards (press enter to continue):\n");
+    printf("\n \n \nEverything finished! Let's check all the cards.\n");
+    
+    // "Press Enter to continue" function
     getchar();
+    printf("\nPress Enter to continue...");
+    getchar();
+    printf("\n");
 
     //now, I want to show everything again to the user, all the cards. just to check if everything is well saved.
     for (int i = 0; i < totalNumCities; i++){
@@ -133,7 +138,66 @@ int main() {
 
     }
 
+    printf("\n \n \nOK! Now, let's play. We will compare cards selected by you.\n");
     
+    // "Press Enter to continue" function
+    getchar();
+    printf("\nPress Enter to continue...");
+    getchar();
+    printf("\n");
+
+    char option = ""; // variable to continue playing (Y or N)
+    do{
+        
+        char city1 [50];
+        char city2 [50];
+        int attribute = 0;
+
+
+        //gets what is the first city to compare
+        printf("Type the name of the first city: ");
+        //same code as up there in first "for"
+        fgets(city1, sizeof(city1), stdin);
+        city1[strcspn(city1, "\n")] = 0;
+
+        printf("\n"); //just skip a line
+
+        //second city to compare
+        printf("Type the name of the second city: ");
+        fgets(city2, sizeof(city2), stdin);
+        city2[strcspn(city2, "\n")] = 0;
+        
+        printf("\n"); //just skip a line
+
+        printf("OK! So, what attribute would you like to compare? Type the number of which you'd like:\n");
+        //repeat until user type a valid number
+        do
+        {
+            //gets attribute to compare
+            printf("1. Population\n 2. Area\n 3. Touristic Points\n 4. GDP\n 5. HDI\n 6. Year of Foundation\n 7. Populational Density\n 8. GDP per Capita\n Answer: ");
+            scanf("%d", &attribute);
+
+            if(attribute == "1" || attribute == "2" || attribute == "3" || attribute == "4" || attribute == "5" || attribute == "8"){
+
+            }
+            if (attribute == "6" || attribute == "7"){
+
+            }
+            else{
+                printf("Humm... Seems like you typed another number. Please, choose between 1 and 8 :D");
+            }
+
+        } while ();
+        
+
+
+
+        getchar();
+        printf("\n");
+        printf("Do you want to continue? Y/N: ");
+        scanf(" %c",&option);
+    }
+    while(option == 'Y' || option == 'y');
 
 
     /*No nível Mestre, você implementará comparações entre as cartas, utilizando operadores relacionais e manipulando grandes números com precisão.
