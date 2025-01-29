@@ -1,14 +1,24 @@
 #include <stdio.h>
 
-// Desafio Super Trunfo - Países
-// Tema 1 - Cadastro das Cartas
-// Este código inicial serve como base para o desenvolvimento do sistema de cadastro de cartas de cidades.
-// Siga os comentários para implementar cada parte do desafio.
-//Teste larissa
+// "Super Trunfo - Countries" Challenges
+/* "Super Trunfo - Countries" is a card game about countries would feature cards representing different nations, 
+each with various attributes such as population, area, GDP, HDI, military power, or tourist attractions. 
+Players take turns choosing an attribute from their top card to compare with their opponent’s card. 
+The player with the highest (or lowest, depending on the rule) value wins the round and takes the opponent’s card. 
+The game continues until one player collects all the cards.
+*/
 
 int main() {
-    // Sugestão: Defina variáveis separadas para cada atributo da cidade.
-    // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
+
+    char cityName [20] = "";
+    int cityCode = 0;
+    float cityPopulation = 0;
+    float cityArea = 0;
+    float cityGDP = 0;
+    int cityTouristic = 0;
+    float cityHDI = 0;
+
+    
     
     // Cadastro das Cartas:
     // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
