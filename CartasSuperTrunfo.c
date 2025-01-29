@@ -34,7 +34,7 @@ struct City {
     int population;
     float area;
     int numTouristicPoints;
-    float gdp;
+    double gdp;
     float hdi;
     int yearOfFoundation; // remember when printing and scanning to show the negative sign, indicating BCE and CE
     char code [3]; //city code (first data is A to H, second is 01 to 04)
@@ -42,9 +42,32 @@ struct City {
     //calculated automatically in the algorythm with data from user
     float gdpCapita; //divide GDP/population
     float popDen; //populational density, calculate population/area
-    float superPower; //calculated by sum, but yearOfFoundation and popDen (these 2 we subtract)
+    double superPower; //calculated by sum, but yearOfFoundation and popDen (these 2 we subtract)
 
 };
+
+void compareBiggerAttribute(float value1, float value2, char city1[], char city2[], char attributeName[]) {
+    printf("%s: ", attributeName);
+    if (value1 > value2) {
+        printf("%s wins! Bigger %s (%s: %.2f x %s: %.2f)\n", city1, attributeName, city1, value1, city2, value2);
+    } else if (value2 > value1) {
+        printf("%s wins! Bigger %s (%s: %.2f x %s: %.2f)\n", city2, attributeName, city2, value2, city1, value1);
+    } else {
+        printf("It's a draw! Both %s and %s have %.2f %s.\n", city1, city2, value1, attributeName);
+    }
+}
+
+void compareSmallerAttribute(float value1, float value2, char city1[], char city2[], char attributeName[]) {
+    printf("%s: ", attributeName);
+    if (value1 < value2) {
+        printf("%s wins! Smaller %s (%s: %.2f x %s: %.2f)\n", city1, attributeName, city1, value1, city2, value2);
+    } else if (value2 < value1) {
+        printf("%s wins! Smaller %s (%s: %.2f x %s: %.2f)\n", city2, attributeName, city2, value2, city1, value1);
+    } else {
+        printf("It's a draw! Both %s and %s have %.2f %s.\n", city1, city2, value1, attributeName);
+    }
+}
+
 
 int main() {
     
@@ -66,27 +89,27 @@ int main() {
         scanf("%3s", cities[i].code); //only 3 characters
 
         printf("Type the city's %d POPULATION: (FORMAT: full number ex: 2000000 for 2 milion)\n", i+1);
-        fflush(stdin); //clears any space in terminal before scanf
+        ; //clears any space in terminal before scanf
         scanf("%d", &cities[i].population);
 
         printf("Type the city's %d AREA: (FORMAT: full number ex: 2000000 for 2 milion km²)\n", i+1);
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf("%f", &cities[i].area);
 
         printf("Type the city's %d NUMBER OF TOURISTIC POINTS:\n", i+1);
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf(" %d", &cities[i].numTouristicPoints);
 
         printf("Type the city's %d GDP:\n", i+1);
-        fflush(stdin);
-        scanf("%f", &cities[i].gdp);
+        while (getchar() != '\n');
+        scanf("%lf", &cities[i].gdp);
 
         printf("Type the city's %d HDI:\n", i+1);
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf(" %f", &cities[i].hdi);
 
         printf("Type the city's %d YEAR OF FOUNDATION:\n", i+1);
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf(" %d", &cities[i].yearOfFoundation);
 
         //now that I coul get all the data, let's calculate popDen and gdpCapita
@@ -107,7 +130,7 @@ int main() {
         printf("City's Population: %d \n", cities[i].population);
         printf("City's Area: %.2f \n",  cities[i].area);
         printf("City's Number of Touristic Points: %d \n", cities[i].numTouristicPoints);
-        printf("City's GDP: %.2f \n", cities[i].gdp);
+        printf("City's GDP: %.lf \n", cities[i].gdp);
         printf("City's HDI: %.3f \n", cities[i].hdi);
         printf("City's Year of Foundation: %d \n", cities[i].yearOfFoundation);
         printf("City's Populational Density: %.2f \n", cities[i].popDen);
@@ -116,20 +139,19 @@ int main() {
         
         
         // "Press Enter to continue" function
-        fflush(stdin); //clear everything
+        getchar(); //clear everything
         printf("\nPress Enter to continue...");
-        fflush(stdin); // wait for user to press enter
+        getchar(); // wait for user to press enter
         printf("\n"); // just to make it more beautyful :D
-
         //and repeat!
     }
 
     printf("\nEverything finished! Let's check all the cards.\n");
    
     // "Press Enter to continue" function
-    fflush(stdin); //clear everything
+    while (getchar() != '\n'); //clear everything
     printf("\nPress Enter to continue...");
-    fflush(stdin); // wait for user to press enter
+    while (getchar() != '\n'); // wait for user to press enter
     printf("\n"); // just to make it more beautyful :D
 
     //now, I want to show everything again to the user, all the cards. just to check if everything is well saved.
@@ -142,7 +164,7 @@ int main() {
         printf("City's Population: %d \n", cities[i].population);
         printf("City's Area: %.2f \n",  cities[i].area);
         printf("City's Number of Touristic Points: %d \n", cities[i].numTouristicPoints);
-        printf("City's GDP: %.2f \n", cities[i].gdp);
+        printf("City's GDP: %.lf \n", cities[i].gdp);
         printf("City's HDI: %.3f \n", cities[i].hdi);
         printf("City's Year of Foundation: %d \n", cities[i].yearOfFoundation);
         printf("City's Populational Density: %.2f \n", cities[i].popDen);
@@ -156,7 +178,7 @@ int main() {
     
     // "Press Enter to continue" function
     printf("Press Enter to continue...");
-    fflush(stdin);
+    while (getchar() != '\n');
     printf("\n");
 
     char option; // variable to continue playing (Y or N)
@@ -167,7 +189,7 @@ int main() {
         char city2 [50];
         char attribute;
 
-        fflush(stdin);
+        while (getchar() != '\n');
         //gets what is the first city to compare
         printf("Type the name of the first city: ");
         //same code as up there in first "for"
@@ -202,324 +224,270 @@ int main() {
 
             if(attribute == '1'){ //compares population
                 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1.
                     // I changed the function, bc it was case sensitive. this now is case-insensitive
                         attributeCity1 = cities[i].population;
-
+                        count1 = i;
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].population;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has a population of %.f, while %s has %.f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has a population of %.2f, while %s has %.2f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has a population of %.2f and %s has %.2f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].population, cities[count2].population, city1, city2, "Population");
+                printf("\n");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '2'){ //compares Area
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].area;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].area;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has a area of %.2fkm², while %s has %.2fkm². %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has a area of %.2fkm², while %s has %.2fkm². %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has a area of %.2fkm² and %s has %.2fkm². It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].area, cities[count2].area, city1, city2, "Area");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '3'){ //compares touristic points
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].numTouristicPoints;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].numTouristicPoints;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has %.f touristics points, while %s has %.f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has %.f touristics points, while %s has %.f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has %.f touristics points and %s has %.f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].numTouristicPoints, cities[count2].numTouristicPoints, city1, city2, "Touristic Points");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '4'){ //compares gdp
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].gdp;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].gdp;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has %.f of GDP, while %s has %.f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has %.f of GDP, while %s has %.f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has %.f of GDP and %s has %.f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].gdp, cities[count2].gdp, city1, city2, "GDP");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '5'){ //compares HDI
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].hdi;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].hdi;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has a HDI of %.3f, while %s has %.3f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has a HDI of %.3f, while %s has %.3f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has a HDI of %.3f and %s has %.3f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].hdi, cities[count2].hdi, city1, city2, "HDI");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '6'){ //compares Year of Foundation
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].yearOfFoundation;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].yearOfFoundation;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 < attributeCity2){ //if city1 is better
-                     printf("%s is older than %s! ", city1, city2);
-                     printf("%s was founded in %.f, while %s was founded in %.f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 < attributeCity1){ // if city2 is better
-                    printf("%s is older than %s! ", city2, city1);
-                    printf("%s was founded in %.f, while %s was founded in %.f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s was founded in %.2f and %s was founded in %.2f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '7'){ //compares populational density
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].popDen;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].popDen;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 < attributeCity2){ //if city1 is better
-                     printf("%s is less dense than %s! ", city1, city2);
-                     printf("%s has a populational density of %.2f, while %s has %.2f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 < attributeCity1){ // if city2 is better
-                    printf("%s is less dense than %s! ", city2, city1);
-                    printf("%s has a populational density of %.2f, while %s has %.2f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has a populational density of %.2f and %s has %.2f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '8'){ //compares GDP per capita
 
+                int count1 = 0;
+                int count2 = 0;
+
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].gdpCapita;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].gdpCapita;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has a GDP per Capita of %.2f, while %s has %.2f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has a GDP per Capita of %.2f, while %s has %.2f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has a GDP per Capita of %.2f and %s has %.2f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].gdpCapita, cities[count2].gdpCapita, city1, city2, "GDP per Capita");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
 
             if (attribute == '9'){ //compares superPower
 
+                int count1 = 0;
+                int count2 = 0;
+                
                 for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
 
                         attributeCity1 = cities[i].superPower;
+                        count1 = i;
 
                     }
 
                     if (strcasecmp(cities[i].name, city2) == 0){
 
                         attributeCity2 = cities[i].superPower;
+                        count2 = i;
 
                     }
                 }
 
-                if(attributeCity1 > attributeCity2){ //if city1 is better
-                     printf("%s is better than %s! ", city1, city2);
-                     printf("%s has %.2f as Super Power, while %s has %.3f. %s wins!\n", city1, attributeCity1, city2, attributeCity2, city1);
-                }
-                if(attributeCity2 > attributeCity1){ // if city2 is better
-                    printf("%s is better than %s! ", city2, city1);
-                    printf("%s has %.2f as Super Power, while %s has %.3f. %s wins!\n", city2, attributeCity2, city1, attributeCity1, city2);
-                }
-                if (attributeCity1 == attributeCity2){
-                    printf("%s is equal to %s! ", city1, city2);
-                    printf("%s has %.3f as Super Power and %s has %.3f. It's a draw!\n", city2, attributeCity2, city1, attributeCity1);
-                }
+                compareBiggerAttribute(cities[count1].superPower, cities[count2].superPower, city1, city2, "Super Power");
 
                 printf("Would you like to continue with the same two cards? (Y/N): ");
-                scanf("%c", &sameCards);
-                fflush(stdin);
+                scanf("%s", &sameCards);
+                while (getchar() != '\n');
                 printf("\n");
 
             }
@@ -535,7 +503,7 @@ int main() {
     while(option == 'Y' || option == 'y');
 
     printf("MateCheck thanks you for using our game! Exiting program...");
-    printf("\n");
+    printf("\n \n");
 
     return 0;
 }
