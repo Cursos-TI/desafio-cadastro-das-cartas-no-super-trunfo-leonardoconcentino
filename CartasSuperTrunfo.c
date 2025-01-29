@@ -245,7 +245,7 @@ int main() {
                 compareBiggerAttribute(cities[count1].population, cities[count2].population, city1, city2, "Population");
                 printf("\n");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -275,7 +275,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].area, cities[count2].area, city1, city2, "Area");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -305,7 +305,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].numTouristicPoints, cities[count2].numTouristicPoints, city1, city2, "Touristic Points");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -335,7 +335,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].gdp, cities[count2].gdp, city1, city2, "GDP");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -365,7 +365,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].hdi, cities[count2].hdi, city1, city2, "HDI");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -395,7 +395,7 @@ int main() {
 
                 compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -425,7 +425,7 @@ int main() {
 
                 compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -455,7 +455,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].gdpCapita, cities[count2].gdpCapita, city1, city2, "GDP per Capita");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -485,7 +485,7 @@ int main() {
 
                 compareBiggerAttribute(cities[count1].superPower, cities[count2].superPower, city1, city2, "Super Power");
 
-                printf("Would you like to continue with the same two cards? (Y/N): ");
+                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
@@ -496,7 +496,7 @@ int main() {
         
 
         printf("\n");
-        printf("Do you want to continue playing? Y/N: ");
+        printf("Do you want to continue playing? (Y to continue, anything to exit)");
         scanf(" %c",&option);
         printf("\n");
     }
