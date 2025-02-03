@@ -46,6 +46,7 @@ struct City {
 
 };
 
+//this function aims to get 2 attributes and compare them. the winner is the biggest number
 void compareBiggerAttribute(float value1, float value2, char city1[], char city2[], char attributeName[]) {
     printf("%s: ", attributeName);
     if (value1 > value2) {
@@ -57,6 +58,7 @@ void compareBiggerAttribute(float value1, float value2, char city1[], char city2
     }
 }
 
+//this function aims to get 2 attributes and compare them. the winner is the smallest number
 void compareSmallerAttribute(float value1, float value2, char city1[], char city2[], char attributeName[]) {
     printf("%s: ", attributeName);
     if (value1 < value2) {
@@ -68,14 +70,12 @@ void compareSmallerAttribute(float value1, float value2, char city1[], char city
     }
 }
 
+struct City cities[32]; //32 will be the max range for cards
 
-int main() {
-    
-    int totalNumCities = 32;
-    struct City cities[totalNumCities];
+void collectCards(int numOfCards){
 
-    //here, the "for" function will automatically repeating the algorythm within it, until it reaches 32 times (totalNumCities)
-    for (int i = 0; i < totalNumCities; i++){
+    //here, the "for" function will automatically repeating the algorythm within it, until it reaches numOfCards times (totalNumCities in main)
+    for (int i = 0; i < numOfCards; i++){
         
         printf("\nEnter the information for City %d:\n", i+1); // i have to add +1 to i, bc i starts 0. 
 
@@ -139,13 +139,16 @@ int main() {
         
         
         // "Press Enter to continue" function
-        getchar(); //clear everything
+        // getchar(); //clear everything
         printf("\nPress Enter to continue...");
         getchar(); // wait for user to press enter
         printf("\n"); // just to make it more beautyful :D
         //and repeat!
     }
+}
 
+void checkCards(int numOfCards){
+    
     printf("\nEverything finished! Let's check all the cards.\n");
    
     // "Press Enter to continue" function
@@ -155,7 +158,7 @@ int main() {
     printf("\n"); // just to make it more beautyful :D
 
     //now, I want to show everything again to the user, all the cards. just to check if everything is well saved.
-    for (int i = 0; i < totalNumCities; i++){
+    for (int i = 0; i < numOfCards; i++){
         
         printf("___________________________________\n");
         printf("City number %d:\n", i+1);
@@ -174,6 +177,10 @@ int main() {
 
     }
 
+}
+
+void compareCards(int numOfCards){
+
     printf("\nOK! Now, let's play. We will compare cards selected by you.\n");
     
     // "Press Enter to continue" function
@@ -183,13 +190,13 @@ int main() {
 
     char option; // variable to continue playing (Y or N)
     char sameCards; //variable of maintaing to play with the same 2 cards (Y or N)
+    
     do{
-        
+                
         char city1 [50];
         char city2 [50];
-        char attribute;
+        char option;
 
-        while (getchar() != '\n');
         //gets what is the first city to compare
         printf("Type the name of the first city: ");
         //same code as up there in first "for"
@@ -202,32 +209,32 @@ int main() {
         printf("Type the name of the second city: ");
         fgets(city2, sizeof(city2), stdin);
         city2[strcspn(city2, "\n")] = 0;
-        
+                
         printf("\n"); //just skip a line
 
         printf("OK! So, what attribute would you like to compare? Type the number of which you'd like:\n");
+        
         //repeat until user type a valid number
-        do
-        {
+        do{
 
             float attributeCity1 = 0;
             float attributeCity2 = 0;
 
             //gets attribute to compare
-            printf("1. Population\n2. Area\n3. Touristic Points\n4. GDP\n5. HDI\n6. Year of Foundation\n7. Populational Density\n8. GDP per Capita\n9. Super Power\nYour choise: ");
-            scanf("%c", &attribute);
+            printf("1. Population\n2. Area\n3. Touristic Points\n4. GDP\n5. HDI\n6. Year of Foundation\n");
+            printf("7. Populational Density\n8. GDP per Capita\n9. Super Power\n10. Exit\nYour choise:");
+            scanf("%c", &option);
             printf("\n");
 
-            if(attribute != '1' && attribute != '2' && attribute != '3' && attribute != '4' && attribute != '5' && attribute != '6' && attribute != '7' && attribute != '8' && attribute != '9'){
-                printf("Humm... Seems like you typed something strange to me. Please, choose between 1 and 9 :D\n");
-            }
-
-            if(attribute == '1'){ //compares population
-                
+            switch (option){
+            
+            case 1:
+                    
                 int count1 = 0;
                 int count2 = 0;
 
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
+                for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                        
                     if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1.
                     // I changed the function, bc it was case sensitive. this now is case-insensitive
                         attributeCity1 = cities[i].population;
@@ -249,261 +256,347 @@ int main() {
                 scanf("%s", &sameCards);
                 while (getchar() != '\n');
                 printf("\n");
-
-            }
-
-            if (attribute == '2'){ //compares Area
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].area;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].area;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].area, cities[count2].area, city1, city2, "Area");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '3'){ //compares touristic points
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].numTouristicPoints;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].numTouristicPoints;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].numTouristicPoints, cities[count2].numTouristicPoints, city1, city2, "Touristic Points");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '4'){ //compares gdp
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].gdp;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].gdp;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].gdp, cities[count2].gdp, city1, city2, "GDP");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '5'){ //compares HDI
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].hdi;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].hdi;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].hdi, cities[count2].hdi, city1, city2, "HDI");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '6'){ //compares Year of Foundation
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].yearOfFoundation;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].yearOfFoundation;
-                        count2 = i;
-
-                    }
-                }
-
-                compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '7'){ //compares populational density
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].popDen;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].popDen;
-                        count2 = i;
-
-                    }
-                }
-
-                compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '8'){ //compares GDP per capita
-
-                int count1 = 0;
-                int count2 = 0;
-
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].gdpCapita;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].gdpCapita;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].gdpCapita, cities[count2].gdpCapita, city1, city2, "GDP per Capita");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
-            }
-
-            if (attribute == '9'){ //compares superPower
-
-                int count1 = 0;
-                int count2 = 0;
+                    
+                break;
                 
-                for (int i = 0; i < totalNumCities; i++){ //this for is for searching for the data inside the cities struct
-                    if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
-
-                        attributeCity1 = cities[i].superPower;
-                        count1 = i;
-
-                    }
-
-                    if (strcasecmp(cities[i].name, city2) == 0){
-
-                        attributeCity2 = cities[i].superPower;
-                        count2 = i;
-
-                    }
-                }
-
-                compareBiggerAttribute(cities[count1].superPower, cities[count2].superPower, city1, city2, "Super Power");
-
-                printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
-                scanf("%s", &sameCards);
-                while (getchar() != '\n');
-                printf("\n");
-
+            case 2:
+                /* code */
+                break;
+                
+            case 3:
+                /* code */
+                break;
+                
+            case 4:
+                /* code */
+                break;
+                
+            case 5:
+                /* code */
+                break;
+                
+            case 6:
+                /* code */
+                break;
+                
+            case 7:
+                /* code */
+                break;
+                
+            case 8:
+                /* code */
+                break;
+                
+            case 9:
+                /* code */
+                break;
+                
+            case 10:
+                /* code */
+                break;
+                
+            default:
+                printf("Humm... Seems like you typed something strange to me. Please, choose between 1 and 10 :D\n");
+                break;
             }
 
-        } while (sameCards == 'Y' || sameCards == 'y');
-        
+                    if (attribute == '2'){ //compares Area
 
-        printf("\n");
-        printf("Do you want to continue playing? (Y to continue, anything to exit)");
-        scanf(" %c",&option);
-        printf("\n");
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].area;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].area;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].area, cities[count2].area, city1, city2, "Area");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '3'){ //compares touristic points
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].numTouristicPoints;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].numTouristicPoints;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].numTouristicPoints, cities[count2].numTouristicPoints, city1, city2, "Touristic Points");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '4'){ //compares gdp
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].gdp;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].gdp;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].gdp, cities[count2].gdp, city1, city2, "GDP");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '5'){ //compares HDI
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].hdi;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].hdi;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].hdi, cities[count2].hdi, city1, city2, "HDI");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '6'){ //compares Year of Foundation
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].yearOfFoundation;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].yearOfFoundation;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '7'){ //compares populational density
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].popDen;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].popDen;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '8'){ //compares GDP per capita
+
+                        int count1 = 0;
+                        int count2 = 0;
+
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].gdpCapita;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].gdpCapita;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].gdpCapita, cities[count2].gdpCapita, city1, city2, "GDP per Capita");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                    if (attribute == '9'){ //compares superPower
+
+                        int count1 = 0;
+                        int count2 = 0;
+                        
+                        for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
+                            if (strcasecmp(cities[i].name, city1) == 0){ //this function compares each of the data. if it's the same, returns 0, if not, -1
+
+                                attributeCity1 = cities[i].superPower;
+                                count1 = i;
+
+                            }
+
+                            if (strcasecmp(cities[i].name, city2) == 0){
+
+                                attributeCity2 = cities[i].superPower;
+                                count2 = i;
+
+                            }
+                        }
+
+                        compareBiggerAttribute(cities[count1].superPower, cities[count2].superPower, city1, city2, "Super Power");
+
+                        printf("Would you like to continue with the same two cards? (Y to continue, anything to exit): ");
+                        scanf("%s", &sameCards);
+                        while (getchar() != '\n');
+                        printf("\n");
+
+                    }
+
+                } while (sameCards == 'Y' || sameCards == 'y');
+                
+
+                printf("\n");
+                printf("Do you want to continue playing? (Y to continue, anything to exit)");
+                scanf(" %c",&option);
+                printf("\n");
     }
     while(option == 'Y' || option == 'y');
 
-    printf("MateCheck thanks you for using our game! Exiting program...");
-    printf("\n \n");
+}
+
+
+int main() {
+    
+    int totalNumCities = 0; //total number of cities. will be determined by the user
+    int mainMenu = 0; //main menu option
+
+     printf("Welcome to Super Trunfo by MateCheck! It's a pleasure to have you here.\n");
+     printf("Please, choose the option to continue: \n");
+     printf("1. Play!\n2. Game Rules\n3. Exit\nYour option: ");
+     scanf("%d", &mainMenu);
+
+    do
+    {
+        switch (mainMenu)
+        {
+        case 1: //game option
+            
+            printf("How many cards will be in the game?\n");
+            while (getchar() != '\n');
+            scanf("%d", &totalNumCities);
+
+            collectCards(totalNumCities);
+
+            checkCards(totalNumCities);
+
+            compareCards(totalNumCities);
+
+            
+
+            break;
+
+        case 2: //rules option
+            /* code */
+            break;
+        case 3: //finish option
+            printf("MateCheck thanks you for using our game! Exiting program...");
+            printf("\n \n");
+            break;
+        
+        default:
+            printf("Ops, I didn't get it. Try a valid option!\n");
+            break;
+        }
+
+    } while (mainMenu != 3);
 
     return 0;
 }
