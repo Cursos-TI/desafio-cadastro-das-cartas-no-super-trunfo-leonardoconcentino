@@ -547,9 +547,14 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
         }
     }
     while (attribute1 != 1 && attribute1 != 2 && attribute1 != 3 && attribute1 != 4 && attribute1 != 5 && attribute1 != 6 && attribute1 != 7 && attribute1 != 8 &&  attribute1 != 9 && attribute1 != 10);
-        
+    
+    if (attribute1 == 10)
+        return;
+
     printf("\n");
     printf("And the second attribute?\n");
+    printf("1. Population\n2. Area\n3. Touristic Points\n4. GDP\n5. HDI\n6. Year of Foundation\n");
+    printf("7. Populational Density\n8. GDP per Capita\n9. Super Power\n10. Return to main menu\nYour choise: ");
     printf("Your choise: ");
     scanf("%d", &attribute2);
     printf("\n");
@@ -876,6 +881,9 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
     }
     while(attribute2 != 1 && attribute2 != 2 && attribute2 != 3 && attribute2 != 4 && attribute2 != 5 && attribute2 != 6 && attribute2 != 7 && attribute2 != 8 &&  attribute2 != 9 && attribute2 != 10);
 
+    if (attribute1 == 10)
+        return;
+
     if(scoreCity1 > scoreCity2){
 
         printf("%s is the winner!\n", city1);
@@ -1016,14 +1024,12 @@ int main() {
 
                 }
                 while(continuePlaying == 'Y' || continuePlaying == 'y');
-                
-                printf("\n");
-                printf("MateCheck thanks you for using our game! Exiting program...");
-                printf("\n \n");
+
                 break;
-            
+
             //rules option
             case 2: ; //i had to put semi-colon here to avoid label error 
+                
                 printf("'Super Trunfo - Countries' is a card game about countries would feature cards representing different nations"); 
                 printf("each with various attributes such as population, area, GDP, HDI, military power, or tourist attractions."); 
                 printf("Players take turns choosing an attribute from their card to compare with their opponent’s card.");
@@ -1034,15 +1040,19 @@ int main() {
                 printf("Third: Choose the 2 attributes to compare;\n");
                 printf("Fourth: The system will compare both cards and declare the winner of the round!\n");
                 printf("\n \n");
+
                 break;
             
             //finish option
             case 3: ; //i had to put semi-colon here to avoid label error 
+                
                 printf("MateCheck thanks you for using our game! Exiting program...");
                 printf("\n \n");
+                
                 break;
             
             default:
+                
                 printf("Ops, I didn't get it. Try a valid option!\n");
                 break;
         }
