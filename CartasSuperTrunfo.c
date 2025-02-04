@@ -104,37 +104,53 @@ void collectCards(int numOfCards){
         printf("\nEnter the information for City %d:\n", i+1); // i have to add +1 to i, bc i starts 0. 
 
         printf("Type the city's %d NAME:\n", i+1);
+        printf("Answer: ");
         fgets(cities[i].name, sizeof(cities[i].name), stdin); //i need to use this, so the user can enter cities full names with spaces between names
         //normally, fgets catches data from an external file, but stdin catches from terminal
         //this function below removes \n. everytime that fgets was catching the full name, it was adding \n. it was necessary to add <string.h> Library 
         cities[i].name[strcspn(cities[i].name, "\n")] = 0;
+        printf("\n\n");
 
         printf("Type the city's %d CODE: (FORMAT: LETTER + NUMBER ex: A01, C03)\n", i+1);
+        printf("Answer: ");
         scanf("%3s", cities[i].code); //only 3 characters
+        printf("\n\n");
 
         printf("Type the city's %d POPULATION: (FORMAT: full number ex: 2000000 for 2 milion)\n", i+1);
         ; //clears any space in terminal before scanf
+        printf("Answer: ");
         scanf(" %lf", &cities[i].population);
+        printf("\n\n");
 
         printf("Type the city's %d AREA: (FORMAT: full number ex: 2000000 for 2 milion km²)\n", i+1);
+        printf("Answer: ");
         while (getchar() != '\n');
         scanf(" %f", &cities[i].area);
+        printf("\n\n");
 
         printf("Type the city's %d NUMBER OF TOURISTIC POINTS:\n", i+1);
+        printf("Answer: ");
         while (getchar() != '\n');
         scanf(" %u", &cities[i].numTouristicPoints);
+        printf("\n\n");
 
         printf("Type the city's %d GDP:\n", i+1);
+        printf("Answer: ");
         while (getchar() != '\n');
         scanf(" %lf", &cities[i].gdp);
+        printf("\n\n");
 
         printf("Type the city's %d HDI:\n", i+1);
+        printf("Answer: ");
         while (getchar() != '\n');
         scanf(" %f", &cities[i].hdi);
+        printf("\n\n");
 
         printf("Type the city's %d YEAR OF FOUNDATION: (FORMAT: if CE, positive, if BCE, negative)\n", i+1);
+        printf("Answer: ");
         while (getchar() != '\n');
         scanf(" %d", &cities[i].yearOfFoundation);
+        printf("\n\n");
 
         //now that I coul get all the data, let's calculate popDen and gdpCapita
 
