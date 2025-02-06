@@ -55,20 +55,20 @@ int compareBiggerAttribute(double value1, double value2, char city1[], char city
     
     printf("%s: ", attributeName);
     
-    if (value1 > value2) {
+    if (value1 > value2) { //if 1 is bigger, 1 wins
 
         printf("%s wins! Bigger %s (%s: %.2lf x %s: %.2lf)\n", city1, attributeName, city1, value1, city2, value2);
-        return 1;
+        return 1; //return 1 = shows superTrunfoGame() that 1 is the winner. this is to help to build the score
 
-    } else if (value2 > value1) {
+    } else if (value2 > value1) { //if 2 is bigger, 2 wins
 
         printf("%s wins! Bigger %s (%s: %.2lf x %s: %.2lf)\n", city2, attributeName, city2, value2, city1, value1);
-        return 2;
+        return 2; //return 2 = shows superTrunfoGame() that 2 is the winner. this is to help to build the score
 
-    } else {
+    } else { //draw
 
         printf("It's a draw! Both %s and %s have %.2lf %s.\n", city1, city2, value1, attributeName);
-        return 3;
+        return 3; //return 3 = shows superTrunfoGame() that is a draw. this is to help to build the score
 
     }
 }
@@ -78,27 +78,28 @@ int compareSmallerAttribute(double value1, double value2, char city1[], char cit
 
     printf("%s: ", attributeName);
 
-    if (value1 < value2) {
+    if (value1 < value2) { //if 1 is smaller, 1 wins
 
         printf("%s wins! Smaller %s (%s: %.2lf x %s: %.2lf)\n", city1, attributeName, city1, value1, city2, value2);
-        return 1;
+        return 1; //return 1 = shows superTrunfoGame() that 1 is the winner. this is to help to build the score
 
-    } else if (value2 < value1) {
+    } else if (value2 < value1) { //if 2 is bigger, 2 wins
 
         printf("%s wins! Smaller %s (%s: %.2lf x %s: %.2lf)\n", city2, attributeName, city2, value2, city1, value1);
-        return 2;
+        return 2;//return 2 = shows superTrunfoGame() that 2 is the winner. this is to help to build the score
 
-    } else {
+    } else { //draw
 
         printf("It's a draw! Both %s and %s have %.2lf %s.\n", city1, city2, value1, attributeName);
-        return 3;
+        return 3; //return 3 = shows superTrunfoGame() that is a draw. this is to help to build the score
 
     }
 }
 
+//function to collect all data of cards
 void collectCards(int numOfCards){
 
-    //here, the "for" function will automatically repeating the algorythm within it, until it reaches numOfCards times (totalNumCities in main)
+    //here, the "for" function will automatically repeating the algorythm within it, until it reaches numOfCards times (numOfCards in superTrunfoGame())
     for (int i = 0; i < numOfCards; i++){
         getchar();
         printf("\nEnter the information for City %d:\n", i+1); // i have to add +1 to i, bc i starts 0. 
@@ -180,6 +181,7 @@ void collectCards(int numOfCards){
     }
 }
 
+//function to check cards, showing the user all data
 void checkCards(int numOfCards){
     
     printf("\nEverything finished! Let's check all the cards.\n");
@@ -212,10 +214,11 @@ void checkCards(int numOfCards){
 
 }
 
+//function to search for the specific card requested for the user
 int searchCard(int numOfCards, char cityName [50]){
 
     int index = 0;
-    bool exists = false;
+    bool exists = false; //boolean to stablish when the card actually exists
 
     for (int i = 0; i < numOfCards; i++){ //this for is for searching for the data inside the cities struct
                             
@@ -224,28 +227,29 @@ int searchCard(int numOfCards, char cityName [50]){
             index = i;
             exists = true;
         }
-        if (exists)
+        if (exists) //stops the "for"
             i = numOfCards;
     }
 
     if (exists)
-        return index;
+        return index; //returns the index (the number of the card in array)
     else
-        return 99;
+        return 99; //doesnt exist
 
 }
 
+//function to compare both cards selected by the user
 void compareCards(int numOfCards, char city1 [50], char city2 [50]){
     
-    int attribute1 = 0;
-    int attribute2 = 0;
-    float attributeCity1 = 0;
-    float attributeCity2 = 0;
-    int score = 0;
-    int scoreCity1 = 0;
-    int scoreCity2 = 0;
-    int count1;
-    int count2;
+    int attribute1 = 0; //first attribute select in menu by the user (switch function)
+    int attribute2 = 0; //second attribute select in menu by the user (switch function)
+    float attributeCity1 = 0; //value of city 1's attribute
+    float attributeCity2 = 0; //value of city 2's attribute
+    int score = 0; //function to get the return from the function and determine who was the winner
+    int scoreCity1 = 0; //score of the first city
+    int scoreCity2 = 0; //score of the second city
+    int count1; //variable to keep "index" of card 1 from searchCard();
+    int count2; //variable to keep "index" of card 2 from searchCard();
         
     //repeat until user type a valid number
     do {
@@ -261,28 +265,28 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
         printf("\n");
             
 
-        switch (attribute1){
+        switch (attribute1){ //menu of attributes (first attribute to compare)
                 
         case 1: ; //i had to put semi-colon here to avoid label error
 
-            count1 = searchCard(numOfCards, city1);
-            count2 = searchCard(numOfCards, city2);
+            count1 = searchCard(numOfCards, city1); //search for card 1
+            count2 = searchCard(numOfCards, city2); //search for card 2
 
-            attributeCity1 = cities[count1].population;
+            attributeCity1 = cities[count1].population; //when it is found, attributeCity gains the value of the attribute searched
             attributeCity2 = cities[count2].population;
 
-            score = compareBiggerAttribute(cities[count1].population, cities[count2].population, city1, city2, "Population");
+            score = compareBiggerAttribute(cities[count1].population, cities[count2].population, city1, city2, "Population"); //function to compare attributes
                 
-            if(score == 1){
+            if(score == 1){ //if 1 = city 1 win
 
                 scoreCity1++;
             } 
-            else if (score == 2){
+            else if (score == 2){ //if 2 = city 2 win
 
                 scoreCity2++;
 
             } 
-            else {
+            else { //if 3 = draw, both scores
 
                 scoreCity1++;
                 scoreCity2++;
@@ -291,7 +295,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
 
             printf("\n");
             printf("\n");
-            printf("Score:\n%s %d x %s %d\n", city1, scoreCity1, city2, scoreCity2);
+            printf("Score:\n%s %d x %s %d\n", city1, scoreCity1, city2, scoreCity2); //shows score on terminal
                         
             break;
                     
@@ -431,7 +435,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
             attributeCity1 = cities[count1].yearOfFoundation;
             attributeCity2 = cities[count2].yearOfFoundation;
 
-            score = compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation");
+            score = compareSmallerAttribute(cities[count1].yearOfFoundation, cities[count2].yearOfFoundation, city1, city2, "Year of Foundation"); //compare smaller!
                 
             if(score == 1){
 
@@ -463,7 +467,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
             attributeCity1 = cities[count1].popDen;
             attributeCity2 = cities[count2].popDen;
 
-            score = compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density");
+            score = compareSmallerAttribute(cities[count1].popDen, cities[count2].popDen, city1, city2, "Populational Density"); //compare smaller!
                 
             if(score == 1){
 
@@ -553,7 +557,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
             
         case 10: ; //i had to put semi-colon here to avoid label error
 
-            printf("Returing to main menu...\n");
+            printf("Returing to main menu...\n"); //returns to main menu
             break;
                     
         default:
@@ -565,7 +569,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
     while (attribute1 != 1 && attribute1 != 2 && attribute1 != 3 && attribute1 != 4 && attribute1 != 5 && attribute1 != 6 && attribute1 != 7 && attribute1 != 8 &&  attribute1 != 9 && attribute1 != 10);
     
     if (attribute1 == 10)
-        return;
+        return; //finishes function
 
     printf("\n");
     printf("And the second attribute?\n");
@@ -577,7 +581,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
 
     do{
 
-        if(attribute1 == attribute2){
+        if(attribute1 == attribute2){ //this here is to force the user to choose a different attribute
                 
             do{
                 printf("\n");
@@ -592,7 +596,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
 
         }
 
-        switch (attribute2){
+        switch (attribute2){ //same as attribute 1.
                 
         case 1: ; //i had to put semi-colon here to avoid label error
 
@@ -900,7 +904,7 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
     if (attribute1 == 10)
         return;
 
-    if(scoreCity1 > scoreCity2){
+    if(scoreCity1 > scoreCity2){ //shows which card was the winner
 
         printf("%s is the winner!\n", city1);
 
@@ -914,6 +918,119 @@ void compareCards(int numOfCards, char city1 [50], char city2 [50]){
 
     }
 
+}
+
+//game itself
+void superTrunfoGame(){
+
+
+    char continuePlaying; // variable to continue playing (Y or N)
+    char sameCards; //variable of maintaing to play with the same 2 cards (Y or N)
+    int numOfCards = 0;
+    printf("\n");
+
+    printf("How many cards will be in the game? (min: 2, max: 32)\n");
+    printf("Number: ");
+    scanf("%d", &numOfCards);
+
+    if(numOfCards < 2 || numOfCards > 32){ //checking if the number of cards selected is appropriated (between 2 and 32)
+                    
+        do{
+
+            printf("\n");
+            printf("Number invalid. Please choose between 2 and 32.\n");
+            printf("Number: ");
+            scanf("%d", &numOfCards);
+                
+        }
+        while(numOfCards < 2 || numOfCards > 32);
+    }
+
+    collectCards(numOfCards); //function to collect data
+
+    checkCards(numOfCards); //function to check all cards data 
+                
+    printf("\nOK! Now, let's play. :D \n");
+    
+    // "Press Enter to continue" function
+    printf("Press Enter to continue...");
+    while (getchar() != '\n');
+    printf("\n");
+
+    char card1 [50]; //variable to collect the name of the first city (card)
+    char card2 [50]; //second city
+
+    do{ //loop to play. will stop when player decides to do so
+        getchar();
+        //gets what is the first city to compare
+        printf("Type the name of the first city: ");
+        //same code as up there in first "for"
+        fgets(card1, sizeof(card1), stdin);
+        card1[strcspn(card1, "\n")] = 0;
+        printf("\n"); //just skip a line
+
+        int proof = searchCard(numOfCards, card1); //searchCard() returns 99 if the program couldn't find the typed city.
+        do{
+
+            if(proof == 99){
+
+                printf("City not found. Please type a valid city: ");
+                fgets(card1, sizeof(card1), stdin);
+                card1[strcspn(card1, "\n")] = 0;
+                printf("\n"); //just skip a line
+                proof = searchCard(numOfCards, card1);
+
+            }
+
+        }
+        while(proof == 99);
+
+                    
+
+        //second city to compare
+        printf("Type the name of the second city: ");
+        fgets(card2, sizeof(card2), stdin);
+        card2[strcspn(card2, "\n")] = 0;
+        printf("\n"); //just skip a line
+
+        proof = searchCard(numOfCards, card2); //same to card 2
+        do{
+
+            if(proof == 99){
+
+                printf("City not found. Please type a valid city: ");
+                fgets(card2, sizeof(card2), stdin);
+                card2[strcspn(card2, "\n")] = 0;
+                printf("\n"); //just skip a line
+                proof = searchCard(numOfCards, card2);
+
+            }
+
+        }
+        while(proof == 99);
+                    
+        do{ //loop to play with the same cards. will stop when player decides to do so
+
+            compareCards(numOfCards, card1, card2); //function to compare both cards
+            printf("\n\n");
+            getchar();
+            printf("Would you like to play with the same cards? (Y to continue, anything to stop)\n");
+            printf("Answer: ");
+            scanf("%c", &sameCards);
+            printf("\n");
+
+        } 
+        while (sameCards == 'Y' || sameCards == 'y');
+                   
+        printf("\n\n");
+        getchar();
+        printf("Would you like to continue playing and choose different cards? (Y to continue, anything to stop) \n");
+        printf("Answer: ");
+        scanf("%c", &continuePlaying);
+        printf("\n");
+
+    }
+    while(continuePlaying == 'Y' || continuePlaying == 'y');
 }
 
 
@@ -934,112 +1051,7 @@ int main() {
             //game option
             case 1: ; //i had to put semi-colon here to avoid label error  
 
-                char continuePlaying; // variable to continue playing (Y or N)
-                char sameCards; //variable of maintaing to play with the same 2 cards (Y or N)
-                printf("\n");
-
-                printf("How many cards will be in the game? (min: 2, max: 32)\n");
-                printf("Number: ");
-                scanf("%d", &totalNumCities);
-
-                if(totalNumCities < 2 || totalNumCities > 32){
-                    
-                    do{
-
-                        printf("\n");
-                        printf("Number invalid. Please choose between 2 and 32.\n");
-                        printf("Number: ");
-                        scanf("%d", &totalNumCities);
-                
-                    }
-                    while(totalNumCities < 2 || totalNumCities > 32);
-                }
-
-                collectCards(totalNumCities);
-
-                checkCards(totalNumCities);
-                
-                printf("\nOK! Now, let's play. :D \n");
-    
-                // "Press Enter to continue" function
-                printf("Press Enter to continue...");
-                while (getchar() != '\n');
-                printf("\n");
-
-                char card1 [50];
-                char card2 [50];
-
-                do{
-                    getchar();
-                    //gets what is the first city to compare
-                    printf("Type the name of the first city: ");
-                    //same code as up there in first "for"
-                    fgets(card1, sizeof(card1), stdin);
-                    card1[strcspn(card1, "\n")] = 0;
-                    printf("\n"); //just skip a line
-
-                    int proof = searchCard(totalNumCities, card1);
-                    do{
-
-                        if(proof == 99){
-
-                            printf("City not found. Please type a valid city: ");
-                            fgets(card1, sizeof(card1), stdin);
-                            card1[strcspn(card1, "\n")] = 0;
-                            printf("\n"); //just skip a line
-                            proof = searchCard(totalNumCities, card1);
-
-                        }
-
-                    }
-                    while(proof == 99);
-
-                    
-
-                    //second city to compare
-                    printf("Type the name of the second city: ");
-                    fgets(card2, sizeof(card2), stdin);
-                    card2[strcspn(card2, "\n")] = 0;
-                    printf("\n"); //just skip a line
-
-                    proof = searchCard(totalNumCities, card2);
-                    do{
-
-                        if(proof == 99){
-
-                            printf("City not found. Please type a valid city: ");
-                            fgets(card2, sizeof(card2), stdin);
-                            card2[strcspn(card2, "\n")] = 0;
-                            printf("\n"); //just skip a line
-                            proof = searchCard(totalNumCities, card2);
-
-                        }
-
-                    }
-                    while(proof == 99);
-                    
-                    do{
-
-                        compareCards(totalNumCities, card1, card2);
-                        printf("\n\n");
-                        getchar();
-                        printf("Would you like to play with the same cards? (Y to continue, anything to stop)\n");
-                        printf("Answer: ");
-                        scanf("%c", &sameCards);
-                        printf("\n");
-
-                    } 
-                    while (sameCards == 'Y' || sameCards == 'y');
-                   
-                    printf("\n\n");
-                    getchar();
-                    printf("Would you like to continue playing and choose different cards? (Y to continue, anything to stop) \n");
-                    printf("Answer: ");
-                    scanf("%c", &continuePlaying);
-                    printf("\n");
-
-                }
-                while(continuePlaying == 'Y' || continuePlaying == 'y');
+                superTrunfoGame(); //game function
 
                 break;
 
